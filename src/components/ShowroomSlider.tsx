@@ -151,15 +151,15 @@ export const ShowroomSlider: React.FC<ShowroomSliderProps> = ({
       <div
         ref={sliderRef}
         onScroll={handleScroll}
-        className="flex items-stretch gap-6 overflow-x-auto pb-6 pt-2 px-4 no-scrollbar snap-x snap-mandatory scroll-smooth"
-        style={{ scrollPaddingLeft: '24px', scrollPaddingRight: '24px' }}
+        className="flex items-stretch gap-4 sm:gap-6 overflow-x-auto pb-6 pt-2 px-3 sm:px-4 no-scrollbar snap-x snap-mandatory scroll-smooth"
+        style={{ scrollPaddingLeft: '16px', scrollPaddingRight: '16px', WebkitOverflowScrolling: 'touch' }}
       >
         {vehicles.map((vehicle, idx) => {
           const isActive = idx === activeIndex;
           return (
             <div
               key={vehicle.id}
-              className={`showroom-slide snap-center shrink-0 w-[88vw] sm:w-[500px] md:w-[560px] lg:w-[600px] transition-all duration-500 ease-out ${
+              className={`showroom-slide snap-center shrink-0 w-[86vw] sm:w-[480px] md:w-[540px] lg:w-[580px] transition-[transform,opacity] duration-350 ease-out ${
                 isActive ? 'scale-100 opacity-100' : 'scale-[0.98] opacity-85 hover:opacity-100'
               }`}
             >
@@ -168,6 +168,7 @@ export const ShowroomSlider: React.FC<ShowroomSliderProps> = ({
                 isFavorite={favorites.includes(vehicle.id)}
                 onToggleFavorite={onToggleFavorite}
                 onSelect={onSelectVehicle}
+                disableScrollReveal={true}
               />
             </div>
           );

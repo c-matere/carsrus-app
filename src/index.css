@@ -229,23 +229,47 @@ body {
 ------------------------------------------------------------- */
 :root {
   --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-micro: cubic-bezier(0.2, 0, 0, 1);
   --ease-gentle: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Optimize mobile touch responsiveness */
+button, a, input, select {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Apple Light Mode Skeleton Shimmer Sweep */
+@keyframes skeletonSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skeleton-shimmer {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 30%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.4) 70%,
+    transparent 100%
+  );
+  animation: skeletonSweep 1.8s infinite ease-in-out;
+}
+
 @keyframes appleFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes appleSlideUp {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -256,7 +280,7 @@ body {
 @keyframes appleSlideDown {
   from {
     opacity: 0;
-    transform: translateY(-16px);
+    transform: translateY(-12px);
   }
   to {
     opacity: 1;
@@ -267,7 +291,7 @@ body {
 @keyframes appleScaleIn {
   from {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale(0.97);
   }
   to {
     opacity: 1;
@@ -277,8 +301,8 @@ body {
 
 @keyframes heroCinemaZoom {
   0% {
-    opacity: 0.6;
-    transform: scale(1.03);
+    opacity: 0.8;
+    transform: scale(1.02);
   }
   100% {
     opacity: 1;
@@ -286,45 +310,33 @@ body {
   }
 }
 
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-/* Apple Entrance Animation Classes */
 .animate-apple-fade {
-  animation: appleFadeIn 0.8s var(--ease-apple) forwards;
+  animation: appleFadeIn 0.4s var(--ease-apple) forwards;
 }
 
 .animate-apple-up {
-  animation: appleSlideUp 0.85s var(--ease-apple) forwards;
+  animation: appleSlideUp 0.45s var(--ease-apple) forwards;
 }
 
 .animate-apple-scale {
-  animation: appleScaleIn 0.65s var(--ease-apple) forwards;
+  animation: appleScaleIn 0.35s var(--ease-apple) forwards;
 }
 
 .animate-hero-zoom {
-  animation: heroCinemaZoom 1.4s var(--ease-apple) forwards;
+  animation: heroCinemaZoom 0.9s var(--ease-apple) forwards;
 }
 
-/* Stagger Delays */
-.delay-100 { animation-delay: 100ms; }
-.delay-150 { animation-delay: 150ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-100 { animation-delay: 60ms; }
+.delay-150 { animation-delay: 90ms; }
+.delay-200 { animation-delay: 120ms; }
+.delay-300 { animation-delay: 180ms; }
+.delay-400 { animation-delay: 240ms; }
+.delay-500 { animation-delay: 300ms; }
 
-/* Scroll-Driven Reveal Class */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.85s var(--ease-apple), transform 0.85s var(--ease-apple);
+  transform: translateY(14px);
+  transition: opacity 0.38s var(--ease-apple), transform 0.38s var(--ease-apple);
   will-change: opacity, transform;
 }
 
@@ -333,8 +345,18 @@ body {
   transform: translateY(0);
 }
 
-/* View Transition Cross-Fade */
+@keyframes viewCrossFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .view-enter {
-  animation: appleFadeIn 0.5s var(--ease-apple) forwards, appleSlideUp 0.6s var(--ease-apple) forwards;
+  animation: viewCrossFade 0.28s var(--ease-apple) forwards;
 }
 

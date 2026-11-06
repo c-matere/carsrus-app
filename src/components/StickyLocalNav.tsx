@@ -70,7 +70,7 @@ export const StickyLocalNav: React.FC<StickyLocalNavProps> = ({
   const currentTitle = titleMap[currentView] || 'Cars \'R\' Us Kenya';
 
   return (
-    <div className="sticky top-[44px] z-40 bg-white/90 backdrop-blur-md border-b border-[#d6d6d6]">
+    <div className="hidden sm:block sticky top-[44px] z-40 bg-white/90 backdrop-blur-md border-b border-[#d6d6d6]">
       <div className="max-w-[1240px] mx-auto px-6 h-[52px] flex items-center justify-between">
         <div className="font-semibold text-[#1d1d1f] text-[16px] sm:text-[19px] tracking-tight flex items-center gap-2">
           <span>{currentTitle}</span>

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Vehicle } from '../data/vehicles';
 import { useAnimatedNumber } from '../hooks/useAnimations';
+import { SkeletonImage } from './SkeletonImage';
 
 interface VehicleStoryViewProps {
   vehicle: Vehicle;
@@ -85,9 +86,18 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
     <div className="w-full bg-white text-[#1d1d1f] pb-24">
       
       {/* 1. APPLE IPHONE DUO STYLE VEHICLE SWITCHER TABS */}
-      <div className="w-full bg-[#f5f5f7]/95 backdrop-blur-md border-b border-[#e6e6e8] py-2.5 px-3 sm:px-4 sticky top-[96px] z-30 transition-all">
+      <div className="w-full bg-[#f5f5f7]/95 backdrop-blur-md border-b border-[#e6e6e8] py-2 px-3 sm:px-4 sticky top-[44px] z-30 transition-all">
         <div className="max-w-[1240px] mx-auto flex items-center justify-between gap-2 sm:gap-4">
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 min-w-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 min-w-0">
+            {/* Quick Back to Fleet Button */}
+            <button
+              onClick={onBackToFleet}
+              className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] flex items-center gap-1 cursor-pointer shrink-0 mr-1 sm:mr-2 px-2 py-1 rounded-full bg-black/5 hover:bg-black/10 active:scale-95 transition-all"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span className="hidden xs:inline">Fleet</span>
+            </button>
+
             <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b] hidden lg:inline mr-1 shrink-0">
               Showroom Models:
             </span>
@@ -101,7 +111,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
                       onSelectVehicle(v);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className={`px-3 sm:px-4 py-1.5 rounded-full text-[12px] transition-all shrink-0 cursor-pointer ${
+                    className={`px-3 sm:px-4 py-1.5 rounded-full text-[12px] transition-all shrink-0 cursor-pointer active:scale-95 ${
                       isCurrent
                         ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold'
                         : 'text-[#1d1d1f]/70 hover:text-[#1d1d1f] font-medium'
@@ -122,7 +132,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               href={`https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20I%20am%20inquiring%20about%20the%20${encodeURIComponent(vehicle.name)}%20(${vehicle.stockNo}).`}
               target="_blank"
               rel="noopener noreferrer"
-              className="pricing-blue-pill !py-1.5 !px-3 sm:!px-4 text-[12px] sm:text-[13px] whitespace-nowrap"
+              className="pricing-blue-pill !py-1.5 !px-3 sm:!px-4 text-[12px] sm:text-[13px] whitespace-nowrap active:scale-95 transition-transform"
             >
               Inquire
             </a>
@@ -156,11 +166,12 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
         {/* Main Visual Event: Active Color Canvas with Edge-Free Render */}
         <div className="relative w-full max-w-[960px] mx-auto mb-6">
           <div className="w-full h-[400px] sm:h-[540px] rounded-[28px] overflow-hidden bg-[#f5f5f7] relative">
-            <img
+            <SkeletonImage
               key={activeColor.name}
               src={activeColor.imageUrl}
               alt={`${vehicle.name} in ${activeColor.name}`}
-              className="w-full h-full object-cover animate-apple-fade transition-transform duration-700 hover:scale-102"
+              className="transition-transform duration-700 hover:scale-102"
+              containerClassName="w-full h-full"
             />
 
             {/* Gradient Scrim */}
@@ -272,11 +283,11 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               <div className="lg:col-span-7 h-[340px] sm:h-[420px] rounded-[20px] overflow-hidden bg-[#f5f5f7] relative">
-                <img
+                <SkeletonImage
                   key={activeCloserLook.id}
                   src={activeCloserLook.imageUrl}
                   alt={activeCloserLook.title}
-                  className="w-full h-full object-cover animate-apple-scale"
+                  containerClassName="w-full h-full"
                 />
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold text-[#1d1d1f]">
                   {activeCloserLook.subtitle}
@@ -415,10 +426,10 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
                     {chap.videoUrl ? (
                       <video autoPlay muted loop playsInline className="w-full h-full object-cover">
                         <source src={chap.videoUrl} type="video/mp4" />
-                        <img src={chap.imageUrl} alt={chap.title} className="w-full h-full object-cover" />
+                        <SkeletonImage src={chap.imageUrl} alt={chap.title} containerClassName="w-full h-full" />
                       </video>
                     ) : (
-                      <img src={chap.imageUrl} alt={chap.title} className="w-full h-full object-cover" />
+                      <SkeletonImage src={chap.imageUrl} alt={chap.title} containerClassName="w-full h-full" />
                     )}
                   </div>
 

@@ -2,12 +2,14 @@ import React from 'react';
 import { Heart, ArrowUpRight, Gauge, Shield, Fuel } from 'lucide-react';
 import { Vehicle } from '../data/vehicles';
 import { useScrollReveal } from '../hooks/useAnimations';
+import { SkeletonImage } from './SkeletonImage';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
   onSelect: (vehicle: Vehicle) => void;
+  disableScrollReveal?: boolean;
 }
 
 export const VehicleCard: React.FC<VehicleCardProps> = ({
@@ -15,35 +17,38 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
   isFavorite,
   onToggleFavorite,
   onSelect,
+  disableScrollReveal = false,
 }) => {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.05 });
+  const shouldReveal = disableScrollReveal || isVisible;
 
   return (
     <div
-      ref={ref}
-      className={`apple-card apple-card-interactive p-6 sm:p-8 flex flex-col justify-between bg-white group scroll-reveal ${
-        isVisible ? 'is-visible' : ''
+      ref={disableScrollReveal ? undefined : ref}
+      className={`apple-card apple-card-interactive p-5 sm:p-7 md:p-8 flex flex-col justify-between bg-white group active:scale-[0.985] transition-transform ${
+        disableScrollReveal ? '' : `scroll-reveal ${shouldReveal ? 'is-visible' : ''}`
       }`}
     >
       <div>
-        {/* Media Frame — Spacious 16:10 aspect ratio */}
+        {/* Media Frame — Progressive Skeleton with Shimmer */}
         <div 
           onClick={() => onSelect(vehicle)}
-          className="w-full h-[260px] sm:h-[300px] md:h-[320px] rounded-[24px] overflow-hidden bg-[#f5f5f7] mb-6 relative cursor-pointer"
+          className="w-full h-[220px] xs:h-[250px] sm:h-[290px] md:h-[320px] rounded-[20px] sm:rounded-[24px] overflow-hidden bg-[#f5f5f7] mb-5 sm:mb-6 relative cursor-pointer"
         >
-          <img
+          <SkeletonImage
             src={vehicle.heroImage}
             alt={vehicle.name}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="group-hover:scale-105 transition-transform duration-700 ease-out"
+            containerClassName="w-full h-full"
             loading="lazy"
           />
 
           {/* Badges Overlay */}
-          <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
-            <span className="bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[12px] font-semibold text-[#1d1d1f] shadow-xs">
+          <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 flex flex-wrap items-center gap-1.5 sm:gap-2 z-20">
+            <span className="bg-white/95 backdrop-blur-md px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-[12px] font-semibold text-[#1d1d1f] shadow-xs">
               {vehicle.auctionGrade}
             </span>
-            <span className="bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[12px] font-semibold text-[#0071e3] shadow-xs">
+            <span className="bg-white/95 backdrop-blur-md px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-[12px] font-semibold text-[#0071e3] shadow-xs">
               {vehicle.status}
             </span>
           </div>
@@ -54,14 +59,14 @@ export const VehicleCard: React.FC<VehicleCardProps> = ({
               e.stopPropagation();
               onToggleFavorite(vehicle.id);
             }}
-            className={`absolute top-4 right-4 w-9 h-9 rounded-full backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-xs ${
+            className={`absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full backdrop-blur-md flex items-center justify-center transition-all cursor-pointer shadow-xs z-20 active:scale-90 ${
               isFavorite 
                 ? 'bg-red-50 text-red-500 hover:bg-red-100' 
                 : 'bg-white/90 hover:bg-white text-[#1d1d1f]'
             }`}
             title={isFavorite ? 'Remove from saved' : 'Save vehicle'}
           >
-            <Heart className={`w-4 h-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
+            <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
           </button>
         </div>
 
