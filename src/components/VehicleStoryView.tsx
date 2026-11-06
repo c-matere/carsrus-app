@@ -85,13 +85,13 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
     <div className="w-full bg-white text-[#1d1d1f] pb-24">
       
       {/* 1. APPLE IPHONE DUO STYLE VEHICLE SWITCHER TABS */}
-      <div className="w-full bg-[#f5f5f7] border-b border-[#e6e6e8] py-3 px-4 sticky top-[96px] z-30">
-        <div className="max-w-[1240px] mx-auto flex items-center justify-between gap-4 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b] hidden sm:inline mr-1">
+      <div className="w-full bg-[#f5f5f7]/95 backdrop-blur-md border-b border-[#e6e6e8] py-2.5 px-3 sm:px-4 sticky top-[96px] z-30 transition-all">
+        <div className="max-w-[1240px] mx-auto flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5 min-w-0">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b] hidden lg:inline mr-1 shrink-0">
               Showroom Models:
             </span>
-            <div className="flex items-center bg-[#e6e6e8] p-1 rounded-full">
+            <div className="flex items-center bg-[#e6e6e8] p-1 rounded-full shrink-0">
               {allVehicles.map((v) => {
                 const isCurrent = v.id === vehicle.id;
                 return (
@@ -101,10 +101,10 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
                       onSelectVehicle(v);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className={`px-3 sm:px-4 py-1.5 rounded-full text-[12px] font-medium transition-all shrink-0 cursor-pointer ${
+                    className={`px-3 sm:px-4 py-1.5 rounded-full text-[12px] transition-all shrink-0 cursor-pointer ${
                       isCurrent
                         ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold'
-                        : 'text-[#1d1d1f]/70 hover:text-[#1d1d1f]'
+                        : 'text-[#1d1d1f]/70 hover:text-[#1d1d1f] font-medium'
                     }`}
                   >
                     {v.name.split(' ')[1]} {v.name.split(' ')[2] || ''}
@@ -114,7 +114,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <span className="text-[13px] font-semibold text-[#1d1d1f] hidden md:inline">
               KES {vehicle.priceKes.toLocaleString()}
             </span>
@@ -122,7 +122,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               href={`https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20I%20am%20inquiring%20about%20the%20${encodeURIComponent(vehicle.name)}%20(${vehicle.stockNo}).`}
               target="_blank"
               rel="noopener noreferrer"
-              className="pricing-blue-pill"
+              className="pricing-blue-pill !py-1.5 !px-3 sm:!px-4 text-[12px] sm:text-[13px] whitespace-nowrap"
             >
               Inquire
             </a>
