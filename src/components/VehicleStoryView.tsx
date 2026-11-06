@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   ArrowLeft,
-  Heart,
   ChevronLeft,
   ChevronRight,
   Play,
@@ -15,9 +14,11 @@ import {
   Sparkles,
   Layers,
   Compass,
-  ArrowRight
+  ArrowRight,
+  Cpu,
+  Armchair
 } from 'lucide-react';
-import { Vehicle } from '../data/vehicles';
+import { Vehicle, EditorialFeature, FeatureSlide } from '../data/vehicles';
 import { useAnimatedNumber } from '../hooks/useAnimations';
 import { SkeletonImage } from './SkeletonImage';
 
@@ -31,6 +32,223 @@ interface VehicleStoryViewProps {
   onScheduleTestDrive: (v: Vehicle) => void;
 }
 
+/**
+ * EditorialFeatureSection
+ * Light Theme Apple Aesthetic for Cars 'R' Us
+ */
+const EditorialFeatureSection: React.FC<{
+  feature: EditorialFeature;
+  sectionIndex: number;
+  totalSections: number;
+  vehicleName: string;
+  stockNo: string;
+}> = ({ feature, sectionIndex, totalSections, vehicleName, stockNo }) => {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const activeSlide: FeatureSlide =
+    feature.slides[activeSlideIndex] || feature.slides[0];
+
+  useEffect(() => {
+    if (!isPlaying || feature.slides.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveSlideIndex((prev) => (prev + 1) % feature.slides.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isPlaying, feature.slides.length]);
+
+  const renderFeatureIcon = () => {
+    switch (feature.id) {
+      case 'seats':
+        return <Armchair className="w-4 h-4 text-[#0071e3]" />;
+      case 'transmission':
+        return <Cpu className="w-4 h-4 text-[#0071e3]" />;
+      case 'infotainment':
+        return <Sliders className="w-4 h-4 text-[#0071e3]" />;
+      case 'safety':
+        return <ShieldCheck className="w-4 h-4 text-[#0071e3]" />;
+      default:
+        return <Sparkles className="w-4 h-4 text-[#0071e3]" />;
+    }
+  };
+
+  return (
+    <section className="w-full bg-white border-b border-[#e5e5ea] py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1240px] mx-auto space-y-10">
+        
+        {/* Section Header */}
+        <div className="space-y-4 max-w-[960px]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f5f5f7] border border-[#e5e5ea] text-[11px] font-semibold uppercase tracking-wider text-[#1d1d1f]">
+            {renderFeatureIcon()}
+            <span>0{sectionIndex + 1} / 0{totalSections} · {feature.badge}</span>
+          </div>
+
+          <h2 className="text-[28px] sm:text-[38px] lg:text-[44px] font-bold text-[#1d1d1f] tracking-tight leading-[1.15]">
+            {feature.title}
+          </h2>
+
+          <p className="text-[17px] sm:text-[19px] text-[#424245] leading-relaxed font-normal">
+            {feature.lead}
+          </p>
+        </div>
+
+        {/* 12-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          
+          {/* Column 1: Cinematic Slide Showcase (7 cols) */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="w-full h-[360px] sm:h-[460px] lg:h-[500px] rounded-[24px] overflow-hidden bg-[#f5f5f7] border border-[#e5e5ea] relative group">
+              <SkeletonImage
+                key={activeSlide.id || activeSlide.imageUrl}
+                src={activeSlide.imageUrl}
+                alt={activeSlide.title}
+                className="transition-transform duration-700 ease-out group-hover:scale-102"
+                containerClassName="w-full h-full"
+              />
+
+              {/* Floating Badges */}
+              <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
+                <span className="bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold text-white">
+                  Slide {activeSlideIndex + 1} of {feature.slides.length}
+                </span>
+
+                {activeSlide.metric && (
+                  <div className="bg-black/75 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3]" />
+                    <span className="text-[11px] font-medium text-white/80 hidden xs:inline">{activeSlide.metricLabel}:</span>
+                    <span className="text-[12px] sm:text-[13px] font-bold text-white">{activeSlide.metric}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Bottom Scrim */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent flex items-end p-6 sm:p-8 pointer-events-none z-10">
+                <div className="space-y-1.5 max-w-[560px]">
+                  <span className="text-[11px] font-semibold uppercase tracking-widest text-zinc-300 block">
+                    {activeSlide.subtitle}
+                  </span>
+                  <h3 className="text-[20px] sm:text-[23px] font-bold text-white drop-shadow-sm leading-snug">
+                    {activeSlide.title}
+                  </h3>
+                  <p className="text-[13px] sm:text-[14px] text-zinc-200 line-clamp-2 sm:line-clamp-3 leading-relaxed">
+                    {activeSlide.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Slide Navigation Dock */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-3 bg-[#f5f5f7] border border-[#e5e5ea] rounded-[20px]">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                {feature.slides.map((s, idx) => {
+                  const isActive = activeSlideIndex === idx;
+                  return (
+                    <button
+                      key={s.id || idx}
+                      onClick={() => setActiveSlideIndex(idx)}
+                      className={`px-3 py-1.5 rounded-full text-[12px] font-medium transition-all shrink-0 cursor-pointer active:scale-95 ${
+                        isActive
+                          ? 'bg-[#1d1d1f] text-white font-semibold shadow-xs'
+                          : 'bg-white text-[#424245] hover:text-[#1d1d1f] hover:bg-black/5'
+                      }`}
+                    >
+                      <span>{s.title.split(' ')[0]} {s.title.split(' ')[1] || ''}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="flex items-center justify-end gap-1.5 shrink-0">
+                <button
+                  onClick={() =>
+                    setActiveSlideIndex((prev) =>
+                      prev === 0 ? feature.slides.length - 1 : prev - 1
+                    )
+                  }
+                  className="w-8 h-8 rounded-full bg-white hover:bg-black/5 flex items-center justify-center text-[#1d1d1f] border border-[#e5e5ea] cursor-pointer active:scale-90 transition-transform"
+                  title="Previous perspective"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="w-8 h-8 rounded-full bg-white hover:bg-black/5 flex items-center justify-center text-[#1d1d1f] border border-[#e5e5ea] cursor-pointer active:scale-90 transition-transform"
+                  title={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+                >
+                  {isPlaying ? (
+                    <Pause className="w-3.5 h-3.5" />
+                  ) : (
+                    <Play className="w-3.5 h-3.5 ml-0.5" />
+                  )}
+                </button>
+
+                <button
+                  onClick={() =>
+                    setActiveSlideIndex((prev) => (prev + 1) % feature.slides.length)
+                  }
+                  className="w-8 h-8 rounded-full bg-white hover:bg-black/5 flex items-center justify-center text-[#1d1d1f] border border-[#e5e5ea] cursor-pointer active:scale-90 transition-transform"
+                  title="Next perspective"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Column 2: In-Depth Engineering Narrative & Specs (5 cols) */}
+          <div className="lg:col-span-5 space-y-6 text-left">
+            <div className="space-y-4 text-[15px] sm:text-[16px] text-[#424245] leading-relaxed">
+              {feature.narrative.map((para, pIdx) => (
+                <p key={pIdx} className="border-l-2 border-[#0071e3]/40 pl-4">
+                  {para}
+                </p>
+              ))}
+            </div>
+
+            <div className="pt-2">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b] block mb-3">
+                System Engineering Highlights
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {feature.specs.map((spec, sIdx) => (
+                  <div
+                    key={sIdx}
+                    className="p-3.5 rounded-[16px] bg-[#f5f5f7] border border-[#e5e5ea] space-y-1 hover:border-[#0071e3]/50 transition-colors"
+                  >
+                    <span className="text-[11px] text-[#86868b] uppercase tracking-wider block font-medium">
+                      {spec.label}
+                    </span>
+                    <span className="text-[13px] sm:text-[14px] font-semibold text-[#1d1d1f] leading-snug block">
+                      {spec.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href={`https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20I%20am%20inquiring%20about%20the%20${encodeURIComponent(feature.title)}%20on%20the%20${encodeURIComponent(vehicleName)}%20(${stockNo}).`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[13px] text-[#0071e3] hover:underline font-medium group cursor-pointer"
+              >
+                <span>Inquire about this feature on WhatsApp</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
 export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
   vehicle,
   allVehicles,
@@ -40,20 +258,8 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
   onToggleFavorite,
   onScheduleTestDrive,
 }) => {
-  // Active Chapter Tab (The Essence, Exterior Poise, The Sanctuary, Motive Force, Technical Specs)
-  const [activeChapterIndex, setActiveChapterIndex] = useState(0);
-
-  // Apple Color Finishes Switcher State
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-
-  // Apple Closer Look Slider State
-  const [activeCloserLookIndex, setActiveCloserLookIndex] = useState(0);
-  const [isPlayingSlides, setIsPlayingSlides] = useState(true);
-
-  // Japanese Auction Sheet Submodal
   const [showAuctionModal, setShowAuctionModal] = useState(false);
-
-  // Asset Finance Calculator State
   const [depositPercent, setDepositPercent] = useState(25);
   const [loanTenureMonths, setLoanTenureMonths] = useState(48);
 
@@ -66,42 +272,30 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
       (Math.pow(1 + monthlyRate, loanTenureMonths) - 1)
   );
 
-  // Animated Numbers for Slider Tweens
   const animatedMonthlyPayment = useAnimatedNumber(monthlyPayment, 350);
   const animatedDepositAmount = useAnimatedNumber(depositAmount, 350);
 
-  // Auto-advance Apple closer look slides if playing
-  useEffect(() => {
-    if (!isPlayingSlides || vehicle.closerLookPoints.length <= 1) return;
-    const timer = setInterval(() => {
-      setActiveCloserLookIndex((prev) => (prev + 1) % vehicle.closerLookPoints.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [isPlayingSlides, vehicle.closerLookPoints.length]);
-
   const activeColor = vehicle.colors[selectedColorIndex] || vehicle.colors[0];
-  const activeCloserLook = vehicle.closerLookPoints[activeCloserLookIndex] || vehicle.closerLookPoints[0];
 
   return (
-    <div className="w-full bg-white text-[#1d1d1f] pb-24">
+    <div className="w-full bg-[#fbfbfd] text-[#1d1d1f] pb-24">
       
-      {/* 1. APPLE IPHONE DUO STYLE VEHICLE SWITCHER TABS */}
-      <div className="w-full bg-[#f5f5f7]/95 backdrop-blur-md border-b border-[#e6e6e8] py-2 px-3 sm:px-4 sticky top-[44px] z-30 transition-all">
+      {/* 1. MODEL SWITCHER HORIZON BAR */}
+      <div className="w-full bg-[#f5f5f7]/95 backdrop-blur-md border-b border-[#e5e5ea] py-2 px-3 sm:px-4 sticky top-[44px] z-30 transition-all">
         <div className="max-w-[1240px] mx-auto flex items-center justify-between gap-2 sm:gap-4">
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 min-w-0">
-            {/* Quick Back to Fleet Button */}
             <button
               onClick={onBackToFleet}
-              className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] flex items-center gap-1 cursor-pointer shrink-0 mr-1 sm:mr-2 px-2 py-1 rounded-full bg-black/5 hover:bg-black/10 active:scale-95 transition-all"
+              className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] flex items-center gap-1 cursor-pointer shrink-0 mr-1 sm:mr-2 px-2.5 py-1 rounded-full bg-black/5 hover:bg-black/10 active:scale-95 transition-all"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline">Fleet</span>
+              <span className="hidden xs:inline font-medium">Fleet</span>
             </button>
 
             <span className="text-[11px] font-semibold uppercase tracking-wider text-[#86868b] hidden lg:inline mr-1 shrink-0">
               Showroom Models:
             </span>
-            <div className="flex items-center bg-[#e6e6e8] p-1 rounded-full shrink-0">
+            <div className="flex items-center bg-white border border-[#e5e5ea] p-1 rounded-full shrink-0 shadow-xs">
               {allVehicles.map((v) => {
                 const isCurrent = v.id === vehicle.id;
                 return (
@@ -113,8 +307,8 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
                     }}
                     className={`px-3 sm:px-4 py-1.5 rounded-full text-[12px] transition-all shrink-0 cursor-pointer active:scale-95 ${
                       isCurrent
-                        ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold'
-                        : 'text-[#1d1d1f]/70 hover:text-[#1d1d1f] font-medium'
+                        ? 'bg-[#1d1d1f] text-white font-semibold shadow-xs'
+                        : 'text-[#424245] hover:text-[#1d1d1f] font-medium'
                     }`}
                   >
                     {v.name.split(' ')[1]} {v.name.split(' ')[2] || ''}
@@ -125,7 +319,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <span className="text-[13px] font-semibold text-[#1d1d1f] hidden md:inline">
+            <span className="text-[13px] font-bold text-[#1d1d1f] hidden md:inline">
               KES {vehicle.priceKes.toLocaleString()}
             </span>
             <a
@@ -140,32 +334,28 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
         </div>
       </div>
 
-      {/* 2. ROLLS-ROYCE MONUMENTAL OPENING & ESSENCE DECLARATION */}
-      <section className="w-full pt-16 pb-16 px-6 text-center max-w-[1240px] mx-auto">
-        
-        {/* Bare Launch Orange status */}
-        <span className="launch-status-label mb-2">
-          {vehicle.status} · Stock #{vehicle.stockNo}
-        </span>
+      {/* 2. MONUMENTAL HERO */}
+      <section className="w-full pt-14 pb-16 px-4 sm:px-6 text-center max-w-[1240px] mx-auto">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f5f5f7] border border-[#e5e5ea] text-[11px] font-semibold text-[#1d1d1f] uppercase tracking-wider mb-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3]" />
+          <span>{vehicle.status} · Stock #{vehicle.stockNo}</span>
+        </div>
 
-        {/* Rolls-Royce Moniker Persona */}
-        <p className="text-[13px] sm:text-[14px] font-semibold uppercase tracking-[0.25em] text-[#86868b] mb-3">
+        <p className="text-[13px] sm:text-[14px] font-semibold uppercase tracking-[0.25em] text-[#86868b] mb-2">
           {vehicle.moniker}
         </p>
 
-        {/* Apple 80px / 600 Hero Headline */}
-        <h1 className="hero-display mb-6">
+        <h1 className="hero-display mb-5 text-[#1d1d1f]">
           {vehicle.name}
         </h1>
 
-        {/* Rolls-Royce Contemplative Quote */}
-        <blockquote className="max-w-[720px] mx-auto text-[#707070] text-[18px] sm:text-[21px] leading-relaxed italic mb-10 font-normal">
+        <blockquote className="max-w-[760px] mx-auto text-[#424245] text-[17px] sm:text-[20px] leading-relaxed italic mb-10 font-normal">
           "{vehicle.essenceQuote}"
         </blockquote>
 
-        {/* Main Visual Event: Active Color Canvas with Edge-Free Render */}
-        <div className="relative w-full max-w-[960px] mx-auto mb-6">
-          <div className="w-full h-[400px] sm:h-[540px] rounded-[28px] overflow-hidden bg-[#f5f5f7] relative">
+        {/* Master Visual Canvas */}
+        <div className="relative w-full max-w-[1020px] mx-auto mb-8">
+          <div className="w-full h-[380px] sm:h-[520px] lg:h-[560px] rounded-[28px] overflow-hidden bg-[#f5f5f7] border border-[#e5e5ea] relative">
             <SkeletonImage
               key={activeColor.name}
               src={activeColor.imageUrl}
@@ -174,21 +364,20 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               containerClassName="w-full h-full"
             />
 
-            {/* Gradient Scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-8">
-              <div className="text-left text-white">
-                <span className="text-[11px] font-semibold uppercase tracking-widest text-white/80 block mb-1">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 sm:p-8">
+              <div className="text-left text-white space-y-1">
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-white/80 block">
                   Commission Specification
                 </span>
-                <p className="text-[20px] font-semibold text-white drop-shadow-sm">
+                <p className="text-[18px] sm:text-[22px] font-bold text-white drop-shadow-sm">
                   {activeColor.name} · Grade {vehicle.auctionGrade} Provenance
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 3. APPLE STYLE INTERACTIVE COLOR FINISHES SWITCHER */}
-          <div className="floating-capsule p-4 max-w-[440px] mx-auto -mt-8 relative z-20 flex items-center justify-between bg-white shadow-xs">
+          {/* Color Switcher Capsule */}
+          <div className="floating-capsule p-3.5 max-w-[460px] mx-auto -mt-7 relative z-20 flex items-center justify-between bg-white border border-[#e5e5ea] shadow-lg">
             <div className="text-left pl-2">
               <span className="text-[10px] text-[#86868b] uppercase font-semibold block">Factory Finish</span>
               <span className="text-[13px] font-semibold text-[#1d1d1f] truncate max-w-[200px] block">
@@ -196,7 +385,6 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               </span>
             </div>
 
-            {/* Circular Color Swatches */}
             <div className="flex items-center gap-2.5 pr-2">
               {vehicle.colors.map((c, idx) => {
                 const isSelected = selectedColorIndex === idx;
@@ -205,13 +393,13 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
                     key={idx}
                     onClick={() => setSelectedColorIndex(idx)}
                     className={`w-7 h-7 rounded-full transition-all cursor-pointer relative flex items-center justify-center ${
-                      isSelected ? 'ring-2 ring-[#0071e3] ring-offset-2 scale-110' : 'opacity-85 hover:opacity-100'
+                      isSelected ? 'ring-2 ring-[#0071e3] ring-offset-2 ring-offset-white scale-110' : 'opacity-80 hover:opacity-100'
                     }`}
                     style={{ backgroundColor: c.hex }}
                     title={c.name}
                   >
                     {isSelected && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-white shadow-xs"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-white shadow-xs" />
                     )}
                   </button>
                 );
@@ -221,254 +409,71 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
         </div>
 
         {/* 4-Column Metric Summary Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-[840px] mx-auto pt-6 text-left">
-          <div className="border-l-2 border-[#e6e6e8] pl-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-[920px] mx-auto pt-6 text-left">
+          <div className="border-l-2 border-[#e5e5ea] pl-4">
             <span className="text-[11px] text-[#86868b] uppercase block font-medium">Year & Mileage</span>
             <span className="text-[16px] font-semibold text-[#1d1d1f]">{vehicle.year} · {vehicle.mileageKm.toLocaleString()} km</span>
           </div>
-          <div className="border-l-2 border-[#e6e6e8] pl-4">
+          <div className="border-l-2 border-[#e5e5ea] pl-4">
             <span className="text-[11px] text-[#86868b] uppercase block font-medium">Auction Condition</span>
-            <span className="text-[16px] font-semibold text-[#0071e3]">{vehicle.auctionGrade} / {vehicle.interiorGrade}</span>
+            <span className="text-[16px] font-semibold text-[#1d1d1f]">{vehicle.auctionGrade} / {vehicle.interiorGrade}</span>
           </div>
-          <div className="border-l-2 border-[#e6e6e8] pl-4">
+          <div className="border-l-2 border-[#e5e5ea] pl-4">
             <span className="text-[11px] text-[#86868b] uppercase block font-medium">Drivetrain</span>
             <span className="text-[16px] font-semibold text-[#1d1d1f]">{vehicle.drivetrain.split('(')[0]}</span>
           </div>
-          <div className="border-l-2 border-[#e6e6e8] pl-4">
+          <div className="border-l-2 border-[#e5e5ea] pl-4">
             <span className="text-[11px] text-[#86868b] uppercase block font-medium">Delivered Price</span>
             <span className="text-[17px] font-semibold text-[#1d1d1f]">KES {vehicle.priceKes.toLocaleString()}</span>
           </div>
         </div>
       </section>
 
+      {/* 3. DEDICATED EDITORIAL FEATURE SPREADS */}
+      <div className="w-full">
+        {vehicle.editorialFeatures.map((feat, idx) => (
+          <EditorialFeatureSection
+            key={feat.id}
+            feature={feat}
+            sectionIndex={idx}
+            totalSections={vehicle.editorialFeatures.length}
+            vehicleName={vehicle.name}
+            stockNo={vehicle.stockNo}
+          />
+        ))}
+      </div>
 
-      {/* 4. APPLE IPHONE STYLE "TAKE A CLOSER LOOK" INTERACTIVE SLIDER */}
-      <section className="w-full bg-[#f5f5f7] py-20 px-6">
+      {/* 4. TECHNICAL SPECIFICATIONS & PROVENANCE */}
+      <section className="w-full bg-[#f5f5f7] py-20 px-4 sm:px-6">
         <div className="max-w-[1240px] mx-auto space-y-10">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <span className="launch-status-label mb-1">Interactive Inspection</span>
-              <h2 className="feature-heading">Take a closer look.</h2>
-            </div>
-            <p className="text-[14px] text-[#707070] max-w-[380px]">
-              Examine the bespoke engineering decisions that define this vehicle’s character and mechanical longevity.
-            </p>
-          </div>
-
-          {/* Focal Point Slider Display */}
-          <div className="apple-card p-6 sm:p-10 bg-white space-y-8">
-            
-            {/* Focal Point Tab Pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-              {vehicle.closerLookPoints.map((pt, idx) => {
-                const isActive = activeCloserLookIndex === idx;
-                return (
-                  <button
-                    key={pt.id}
-                    onClick={() => setActiveCloserLookIndex(idx)}
-                    className={`px-4 py-2 rounded-full text-[13px] font-medium transition-all shrink-0 cursor-pointer ${
-                      isActive
-                        ? 'bg-[#1d1d1f] text-white shadow-xs'
-                        : 'bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e6e6e8]'
-                    }`}
-                  >
-                    {pt.title}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Slider Content Frame */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              
-              <div className="lg:col-span-7 h-[340px] sm:h-[420px] rounded-[20px] overflow-hidden bg-[#f5f5f7] relative">
-                <SkeletonImage
-                  key={activeCloserLook.id}
-                  src={activeCloserLook.imageUrl}
-                  alt={activeCloserLook.title}
-                  containerClassName="w-full h-full"
-                />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold text-[#1d1d1f]">
-                  {activeCloserLook.subtitle}
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 space-y-6 text-left">
-                <div>
-                  <span className="text-[12px] font-semibold text-[#0071e3] uppercase tracking-wider block mb-1">
-                    Focal Engineering
-                  </span>
-                  <h3 className="text-[26px] font-semibold text-[#1d1d1f] leading-snug">
-                    {activeCloserLook.title}
-                  </h3>
-                  <p className="text-[15px] text-[#707070] leading-relaxed mt-3">
-                    {activeCloserLook.description}
-                  </p>
-                </div>
-
-                <div className="pt-6 border-t border-[#e6e6e8] flex items-center justify-between">
-                  <div>
-                    <span className="text-[11px] text-[#86868b] uppercase block font-medium">Key Indicator</span>
-                    <span className="text-[14px] font-semibold text-[#1d1d1f]">{activeCloserLook.metricLabel}</span>
-                  </div>
-                  <span className="text-[28px] font-semibold text-[#0071e3]">
-                    {activeCloserLook.metric}
-                  </span>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Carousel Navigation Pill Controls */}
-            <div className="flex items-center justify-between pt-4 border-t border-[#f5f5f7]">
-              <div className="flex items-center gap-2">
-                {vehicle.closerLookPoints.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveCloserLookIndex(i)}
-                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                      activeCloserLookIndex === i ? 'w-8 bg-[#0071e3]' : 'w-2 bg-[#d6d6d6]'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() =>
-                    setActiveCloserLookIndex((prev) =>
-                      prev === 0 ? vehicle.closerLookPoints.length - 1 : prev - 1
-                    )
-                  }
-                  className="w-8 h-8 rounded-full bg-[#f5f5f7] hover:bg-[#e6e6e8] flex items-center justify-center text-[#1d1d1f] cursor-pointer"
-                  title="Previous slide"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setIsPlayingSlides(!isPlayingSlides)}
-                  className="w-8 h-8 rounded-full bg-[#f5f5f7] hover:bg-[#e6e6e8] flex items-center justify-center text-[#1d1d1f] cursor-pointer"
-                  title={isPlayingSlides ? 'Pause slides' : 'Play slides'}
-                >
-                  {isPlayingSlides ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
-                </button>
-                <button
-                  onClick={() =>
-                    setActiveCloserLookIndex((prev) => (prev + 1) % vehicle.closerLookPoints.length)
-                  }
-                  className="w-8 h-8 rounded-full bg-[#f5f5f7] hover:bg-[#e6e6e8] flex items-center justify-center text-[#1d1d1f] cursor-pointer"
-                  title="Next slide"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-      {/* 5. ROLLS-ROYCE STORYTELLING CHAPTERS (Essence, Exterior, Sanctuary, Motive Force) */}
-      <section className="w-full bg-white py-20 px-6">
-        <div className="max-w-[1240px] mx-auto space-y-12">
-          
-          {/* Chapter Selector Tabs */}
-          <div className="border-b border-[#e6e6e8] flex items-center gap-8 overflow-x-auto no-scrollbar">
-            {vehicle.chapters.map((chap, idx) => {
-              const isActive = activeChapterIndex === idx;
-              return (
-                <button
-                  key={chap.id}
-                  onClick={() => setActiveChapterIndex(idx)}
-                  className={`pb-4 text-[16px] font-medium transition-colors shrink-0 cursor-pointer relative ${
-                    isActive ? 'text-[#1d1d1f] font-semibold' : 'text-[#707070] hover:text-[#1d1d1f]'
-                  }`}
-                >
-                  <span>{chap.tabLabel}</span>
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0071e3]" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Chapter Presentation */}
-          {(() => {
-            const chap = vehicle.chapters[activeChapterIndex] || vehicle.chapters[0];
-            return (
-              <div className="space-y-10 animate-in fade-in duration-300">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                  
-                  <div className="lg:col-span-5 space-y-5 text-left">
-                    <span className="launch-status-label">{chap.eyebrow}</span>
-                    <h3 className="feature-heading">{chap.title}</h3>
-                    <div className="space-y-4 text-[16px] text-[#707070] leading-relaxed">
-                      {chap.narrative.map((para, pIdx) => (
-                        <p key={pIdx}>{para}</p>
-                      ))}
-                    </div>
-
-                    <div className="pt-4 grid grid-cols-2 gap-4 border-t border-[#e6e6e8]">
-                      {chap.highlights.map((h, hIdx) => (
-                        <div key={hIdx}>
-                          <span className="text-[11px] text-[#86868b] uppercase block font-medium">{h.label}</span>
-                          <span className="text-[14px] font-semibold text-[#1d1d1f]">{h.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="lg:col-span-7 h-[380px] sm:h-[460px] rounded-[24px] overflow-hidden bg-[#f5f5f7]">
-                    {chap.videoUrl ? (
-                      <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-                        <source src={chap.videoUrl} type="video/mp4" />
-                        <SkeletonImage src={chap.imageUrl} alt={chap.title} containerClassName="w-full h-full" />
-                      </video>
-                    ) : (
-                      <SkeletonImage src={chap.imageUrl} alt={chap.title} containerClassName="w-full h-full" />
-                    )}
-                  </div>
-
-                </div>
-              </div>
-            );
-          })()}
-
-        </div>
-      </section>
-
-
-      {/* 6. TECHNICAL SPECIFICATIONS & AUCTION SHEET MODAL */}
-      <section className="w-full bg-[#f5f5f7] py-20 px-6">
-        <div className="max-w-[1240px] mx-auto space-y-10">
-          
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="launch-status-label mb-1">Engineering Archive</span>
-              <h2 className="feature-heading">Technical Specifications.</h2>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#e5e5ea] text-[11px] font-semibold uppercase tracking-wider text-[#1d1d1f] mb-2">
+                <FileText className="w-3.5 h-3.5 text-[#0071e3]" />
+                <span>Engineering Archive & Provenance</span>
+              </span>
+              <h2 className="text-[28px] sm:text-[36px] font-bold text-[#1d1d1f] tracking-tight">
+                Technical Specifications & Provenance.
+              </h2>
             </div>
 
             <button
               onClick={() => setShowAuctionModal(true)}
-              className="outlined-explore-pill cursor-pointer"
+              className="outlined-explore-pill cursor-pointer hover:border-[#1d1d1f] transition-colors"
             >
-              <FileText className="w-3.5 h-3.5 text-[#0071e3]" />
+              <FileText className="w-3.5 h-3.5 text-[#86868b]" />
               <span>Inspect {vehicle.auctionHall} Auction Sheet</span>
             </button>
           </div>
 
-          <div className="apple-card p-8 bg-white border border-[#d6d6d6] divide-y divide-[#d6d6d6]">
+          <div className="p-6 sm:p-8 bg-white rounded-[24px] border border-[#e5e5ea] divide-y divide-[#e5e5ea] shadow-xs">
             {vehicle.specifications.map((group, idx) => (
               <div key={idx} className="py-6 first:pt-0 last:pb-0 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <span className="text-[15px] font-semibold text-[#1d1d1f]">{group.category}</span>
+                <span className="text-[15px] font-bold text-[#1d1d1f]">{group.category}</span>
                 <div className="md:col-span-2 space-y-2 text-[14px]">
                   {group.items.map((item, itemIdx) => (
                     <div key={itemIdx} className="flex justify-between py-1 border-b border-[#f5f5f7] last:border-0">
-                      <span className="text-[#707070]">{item.label}</span>
+                      <span className="text-[#86868b]">{item.label}</span>
                       <span className="text-[#1d1d1f] font-medium">{item.value}</span>
                     </div>
                   ))}
@@ -476,26 +481,25 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
-
-      {/* 7. ASSET FINANCING STUDIO & COMMISSION HANDOVER DESK */}
-      <section className="w-full bg-white py-20 px-6">
+      {/* 5. ASSET FINANCING & MOMBASA STAMP */}
+      <section className="w-full bg-white py-20 px-4 sm:px-6 border-t border-[#e5e5ea]">
         <div className="max-w-[1240px] mx-auto space-y-10">
-          
-          <div className="apple-card p-8 md:p-12 bg-white border border-[#d6d6d6]">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#e6e6e8]">
+          <div className="p-6 sm:p-10 lg:p-12 bg-[#f5f5f7] rounded-[24px] border border-[#e5e5ea]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#e5e5ea]">
               <div>
-                <span className="launch-status-label mb-1">Financial Acquisition</span>
-                <h3 className="text-[24px] font-semibold text-[#1d1d1f]">Asset Finance Repayment Calculator</h3>
-                <p className="text-[13px] text-[#707070]">Official pre-approved financing via NCBA Bank, Stanbic, and I&M Bank Kenya.</p>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#e5e5ea] text-[11px] font-semibold uppercase tracking-wider text-[#1d1d1f] mb-2">
+                  <span>Financial Acquisition</span>
+                </span>
+                <h3 className="text-[24px] font-bold text-[#1d1d1f]">Asset Finance Repayment Calculator</h3>
+                <p className="text-[13px] text-[#86868b] mt-1">Official pre-approved financing via NCBA Bank, Stanbic Bank, and I&M Bank Kenya.</p>
               </div>
               <div className="text-left sm:text-right">
                 <span className="text-[11px] text-[#86868b] uppercase block font-medium">Estimated Monthly Installment</span>
-                <span className="text-[28px] font-semibold text-[#0071e3] transition-all">
-                  KES {animatedMonthlyPayment.toLocaleString()}<span className="text-[14px] font-normal text-[#707070]">/mo</span>
+                <span className="text-[28px] font-bold text-[#0071e3] transition-all">
+                  KES {animatedMonthlyPayment.toLocaleString()}<span className="text-[14px] font-normal text-[#86868b]">/mo</span>
                 </span>
               </div>
             </div>
@@ -504,7 +508,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               <div>
                 <div className="flex justify-between text-[13px] mb-2">
                   <span className="font-medium text-[#1d1d1f]">Deposit Equity ({depositPercent}%)</span>
-                  <span className="font-semibold text-[#0071e3] transition-all">KES {animatedDepositAmount.toLocaleString()}</span>
+                  <span className="font-semibold text-[#1d1d1f] transition-all">KES {animatedDepositAmount.toLocaleString()}</span>
                 </div>
                 <input
                   type="range"
@@ -525,7 +529,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               <div>
                 <div className="flex justify-between text-[13px] mb-2">
                   <span className="font-medium text-[#1d1d1f]">Loan Duration ({loanTenureMonths} Months / {loanTenureMonths / 12} Years)</span>
-                  <span className="font-semibold text-[#0071e3]">{loanTenureMonths} Months</span>
+                  <span className="font-semibold text-[#1d1d1f]">{loanTenureMonths} Months</span>
                 </div>
                 <input
                   type="range"
@@ -546,17 +550,17 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
           </div>
 
           {/* Mombasa Pre-Delivery Protocol Stamp */}
-          <div className="apple-card p-8 bg-[#fafafc] border border-[#d6d6d6]">
-            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-[#e6e6e8]">
+          <div className="p-6 sm:p-8 bg-[#f5f5f7] rounded-[24px] border border-[#e5e5ea]">
+            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-[#e5e5ea]">
               <ShieldCheck className="w-6 h-6 text-[#0071e3]" />
               <div>
-                <h4 className="text-[18px] font-semibold text-[#1d1d1f]">Mombasa 48-Hour Pre-Delivery Overhaul Stamp</h4>
-                <p className="text-[12px] text-[#707070]">Certified on Tangana Road for Stock #{vehicle.stockNo}</p>
+                <h4 className="text-[18px] font-bold text-[#1d1d1f]">Mombasa 48-Hour Pre-Delivery Overhaul Stamp</h4>
+                <p className="text-[12px] text-[#86868b]">Certified on Tangana Road for Stock #{vehicle.stockNo}</p>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {vehicle.workshopProtocol.map((item, i) => (
-                <div key={i} className="flex items-start gap-2.5 text-[13px] text-[#1d1d1f]">
+                <div key={i} className="flex items-start gap-2.5 text-[13px] text-[#424245]">
                   <CheckCircle2 className="w-4 h-4 text-[#0071e3] shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </div>
@@ -565,13 +569,16 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
           </div>
 
           {/* Conversion Action Bar */}
-          <div className="p-8 bg-[#f5f5f7] rounded-[24px] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+          <div className="p-8 bg-[#f5f5f7] rounded-[24px] border border-[#e5e5ea] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
-              <span className="launch-status-label mb-1">Immediate Availability</span>
-              <h3 className="text-[22px] font-semibold text-[#1d1d1f]">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#e5e5ea] text-[11px] font-semibold uppercase tracking-wider text-[#1d1d1f] mb-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3]" />
+                <span>Immediate Availability</span>
+              </span>
+              <h3 className="text-[22px] font-bold text-[#1d1d1f]">
                 Reserve {vehicle.name}
               </h3>
-              <p className="text-[13px] text-[#707070]">
+              <p className="text-[13px] text-[#86868b] mt-1">
                 Deliverable to your residence in Nairobi or Mombasa within 48 hours.
               </p>
             </div>
@@ -579,7 +586,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
               <button
                 onClick={() => onScheduleTestDrive(vehicle)}
-                className="outlined-explore-pill py-2.5 px-6 text-[13px] cursor-pointer w-full sm:w-auto"
+                className="outlined-explore-pill py-2.5 px-6 text-[13px] cursor-pointer w-full sm:w-auto hover:border-[#1d1d1f] transition-colors"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Book VIP Test Drive</span>
@@ -589,55 +596,55 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
                 href={`https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20I%20would%20like%20to%20reserve%20the%20${encodeURIComponent(vehicle.name)}%20(${vehicle.stockNo})%20priced%20at%20KES%20${vehicle.priceKes.toLocaleString()}.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pricing-blue-pill-lg w-full sm:w-auto justify-center"
+                className="pricing-blue-pill !py-3 !px-6 text-[13px] w-full sm:w-auto justify-center"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>WhatsApp Sales Concierge</span>
               </a>
             </div>
           </div>
-
         </div>
       </section>
 
-
-      {/* 8. JAPANESE AUCTION SHEET MODAL */}
+      {/* 6. AUCTION SHEET MODAL */}
       {showAuctionModal && (
-        <div className="fixed inset-0 z-60 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white rounded-[24px] max-w-[680px] w-full p-6 relative">
+        <div className="fixed inset-0 z-60 bg-black/60 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-[24px] max-w-[680px] w-full p-6 sm:p-8 relative border border-[#e5e5ea] shadow-2xl">
             <button
               onClick={() => setShowAuctionModal(false)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-[#f5f5f7] cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-full hover:bg-black/5 cursor-pointer text-[#86868b] hover:text-[#1d1d1f]"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-5 h-5" />
             </button>
 
-            <span className="launch-status-label mb-1">Authentic Japanese Export Document</span>
-            <h3 className="text-[22px] font-semibold text-[#1d1d1f] mb-1">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f5f5f7] border border-[#e5e5ea] text-[11px] font-semibold uppercase tracking-wider text-[#1d1d1f] mb-2">
+              <span>Authentic Japanese Export Document</span>
+            </span>
+            <h3 className="text-[22px] font-bold text-[#1d1d1f] mb-1">
               {vehicle.auctionHall} Auction Sheet
             </h3>
-            <p className="text-[13px] text-[#707070] mb-6">
+            <p className="text-[13px] text-[#86868b] mb-6">
               Verified Odometer: {vehicle.mileageKm.toLocaleString()} KM · Overall Grade: {vehicle.auctionGrade} · Interior: {vehicle.interiorGrade}
             </p>
 
-            <div className="bg-[#f5f5f7] rounded-[16px] p-6 text-[13px] font-mono space-y-2 border border-[#d6d6d6]">
-              <div className="flex justify-between border-b border-[#e6e6e8] pb-1.5">
+            <div className="bg-[#f5f5f7] rounded-[16px] p-6 text-[13px] font-mono space-y-2 border border-[#e5e5ea]">
+              <div className="flex justify-between border-b border-[#e5e5ea] pb-1.5">
                 <span className="text-[#86868b]">Auction Hall:</span>
-                <span className="font-semibold">{vehicle.auctionHall} (Japan)</span>
+                <span className="font-semibold text-[#1d1d1f]">{vehicle.auctionHall} (Japan)</span>
               </div>
-              <div className="flex justify-between border-b border-[#e6e6e8] pb-1.5">
+              <div className="flex justify-between border-b border-[#e5e5ea] pb-1.5">
                 <span className="text-[#86868b]">Stock Identification:</span>
-                <span className="font-semibold">{vehicle.stockNo}</span>
+                <span className="font-semibold text-[#1d1d1f]">{vehicle.stockNo}</span>
               </div>
-              <div className="flex justify-between border-b border-[#e6e6e8] pb-1.5">
+              <div className="flex justify-between border-b border-[#e5e5ea] pb-1.5">
                 <span className="text-[#86868b]">Overall Inspection Score:</span>
-                <span className="font-semibold text-[#0071e3]">{vehicle.auctionGrade}</span>
+                <span className="font-semibold text-[#1d1d1f]">{vehicle.auctionGrade}</span>
               </div>
-              <div className="flex justify-between border-b border-[#e6e6e8] pb-1.5">
+              <div className="flex justify-between border-b border-[#e5e5ea] pb-1.5">
                 <span className="text-[#86868b]">Interior / Exterior Score:</span>
-                <span className="font-semibold">{vehicle.interiorGrade}</span>
+                <span className="font-semibold text-[#1d1d1f]">{vehicle.interiorGrade}</span>
               </div>
-              <div className="flex justify-between border-b border-[#e6e6e8] pb-1.5">
+              <div className="flex justify-between border-b border-[#e5e5ea] pb-1.5">
                 <span className="text-[#86868b]">Accident / Frame Damage:</span>
                 <span className="font-semibold text-emerald-600">ZERO (Clean Original Pillars)</span>
               </div>
@@ -652,7 +659,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
                 href={`https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20please%20send%20the%20original%20scanned%20Japanese%20auction%20sheet%20PDF%20for%20${encodeURIComponent(vehicle.name)}%20(${vehicle.stockNo}).`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pricing-blue-pill"
+                className="pricing-blue-pill !py-2.5 !px-5 text-[13px]"
               >
                 Request Scanned Original PDF on WhatsApp
               </a>
