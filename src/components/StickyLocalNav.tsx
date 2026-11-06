@@ -19,25 +19,25 @@ export const StickyLocalNav: React.FC<StickyLocalNavProps> = ({
   if (currentView === 'vehicle-detail' && selectedVehicle) {
     return (
       <div className="sticky top-[44px] z-40 bg-white/90 backdrop-blur-md border-b border-[#d6d6d6] transition-all">
-        <div className="max-w-[1240px] mx-auto px-6 h-[52px] flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-[52px] flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <button
               onClick={onBackToInventory}
-              className="text-[12px] text-[#707070] hover:text-[#1d1d1f] flex items-center gap-1 cursor-pointer"
+              className="text-[12px] text-[#707070] hover:text-[#1d1d1f] flex items-center gap-1 cursor-pointer shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Fleet</span>
             </button>
-            <span className="text-[#d6d6d6]">|</span>
-            <span className="font-semibold text-[#1d1d1f] text-[15px] sm:text-[18px] tracking-tight truncate max-w-[200px] sm:max-w-none">
+            <span className="text-[#d6d6d6] shrink-0">|</span>
+            <span className="font-semibold text-[#1d1d1f] text-[14px] sm:text-[18px] tracking-tight truncate max-w-[130px] xs:max-w-[180px] sm:max-w-[320px] md:max-w-none">
               {selectedVehicle.name}
             </span>
-            <span className="hidden md:inline text-[12px] text-[#86868b] bg-[#f5f5f7] px-2.5 py-0.5 rounded-full font-medium">
+            <span className="hidden md:inline text-[12px] text-[#86868b] bg-[#f5f5f7] px-2.5 py-0.5 rounded-full font-medium shrink-0">
               {selectedVehicle.stockNo}
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <span className="text-[14px] font-semibold text-[#1d1d1f] hidden sm:inline">
               KES {selectedVehicle.priceKes.toLocaleString()}
             </span>
@@ -45,9 +45,9 @@ export const StickyLocalNav: React.FC<StickyLocalNavProps> = ({
               href={`https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20I%20am%20ready%20to%20reserve%20or%20inspect%20the%20${encodeURIComponent(selectedVehicle.name)}%20(${selectedVehicle.stockNo}).`}
               target="_blank"
               rel="noopener noreferrer"
-              className="pricing-blue-pill"
+              className="pricing-blue-pill !py-1.5 !px-3 sm:!px-4 text-[12px] sm:text-[13px] whitespace-nowrap"
             >
-              Reserve / Inquire
+              <span className="hidden sm:inline">Reserve / </span>Inquire
             </a>
           </div>
         </div>
