@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+:root {
+  --color-gallery-white: #ffffff;
+  --color-studio-mist: #f5f5f7;
+  --color-paper-frost: #fafafc;
+  --color-hairline-silver: #d6d6d6;
+  --color-control-gray: #e6e6e8;
+  --color-ink: #1d1d1f;
+  --color-slate: #707070;
+  --color-steel: #86868b;
+  --color-apple-blue: #0066cc;
+  --color-pricing-blue: #0071e3;
+  --color-launch-orange: #b64400;
+
+  --font-sf-pro-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
+  --font-sf-pro-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Helvetica Neue', sans-serif;
+
+  --radius-cards: 28px;
+  --radius-buttons: 9999px;
+  --radius-pills: 36px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #1d1d1f;
+  font-family: var(--font-sf-pro-text);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  background-color: #0071e3;
+  color: #ffffff;
+}
+
+/* Apple Display & Typography */
+.hero-display {
+  font-family: var(--font-sf-pro-display);
+  font-weight: 600;
+  font-size: clamp(38px, 6.5vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  color: #1d1d1f;
+}
+
+.feature-heading {
+  font-family: var(--font-sf-pro-display);
+  font-weight: 600;
+  font-size: clamp(26px, 3.8vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.2px;
+  color: #1d1d1f;
+}
+
+.product-kicker {
+  font-family: var(--font-sf-pro-display);
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: 0.231px;
+  color: #1d1d1f;
+}
+
+/* Launch Status Eyebrow: bare text, #b64400, no pill */
+.launch-status-label {
+  font-family: var(--font-sf-pro-text);
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  color: #b64400;
+  display: inline-block;
+}
+
+/* Pricing Blue Conversion Pill: 9999px, #0071e3 */
+.pricing-blue-pill {
+  background-color: #0071e3;
+  color: #ffffff !important;
+  font-family: var(--font-sf-pro-text);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.pricing-blue-pill:hover {
+  background-color: #0077ed;
+}
+
+.pricing-blue-pill-lg {
+  background-color: #0071e3;
+  color: #ffffff !important;
+  font-family: var(--font-sf-pro-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.22px;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.pricing-blue-pill-lg:hover {
+  background-color: #0077ed;
+}
+
+.outlined-explore-pill {
+  background-color: transparent;
+  color: #1d1d1f !important;
+  border: 1px solid #86868b;
+  font-family: var(--font-sf-pro-text);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.outlined-explore-pill:hover {
+  border-color: #1d1d1f;
+}
+
+.apple-blue-link {
+  font-family: var(--font-sf-pro-text);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  color: #0066cc;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+.apple-blue-link:hover {
+  text-decoration: underline;
+}
+
+/* Apple Cards: 28px, completely shadowless, hairline silver borders */
+.apple-card {
+  background-color: #ffffff;
+  border-radius: 28px;
+  border: 1px solid #d6d6d6;
+  overflow: hidden;
+  box-shadow: none !important;
+  transition: transform 0.5s var(--ease-apple), border-color 0.3s ease;
+  will-change: transform;
+}
+
+.apple-card:hover {
+  border-color: #b0b0b5;
+}
+
+.apple-card-interactive:hover {
+  transform: translateY(-4px);
+  border-color: #a1a1a6;
+}
+
+.apple-feature-card {
+  background-color: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: none !important;
+  border: none;
+  transition: transform 0.6s var(--ease-apple);
+  will-change: transform;
+}
+
+.apple-feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.floating-capsule {
+  background-color: #ffffff;
+  border-radius: 28px;
+  box-shadow: none !important;
+  border: 1px solid #d6d6d6;
+  transition: transform 0.4s var(--ease-apple);
+}
+
+/* Hide scrollbars for pill navigation rows while keeping scrollability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* -------------------------------------------------------------
+   APPLE MOTION SYSTEM (Keyframes & Hardware-Accelerated Curves)
+------------------------------------------------------------- */
+:root {
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-gentle: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes appleFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes appleSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appleSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes appleScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroCinemaZoom {
+  0% {
+    opacity: 0.6;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Apple Entrance Animation Classes */
+.animate-apple-fade {
+  animation: appleFadeIn 0.8s var(--ease-apple) forwards;
+}
+
+.animate-apple-up {
+  animation: appleSlideUp 0.85s var(--ease-apple) forwards;
+}
+
+.animate-apple-scale {
+  animation: appleScaleIn 0.65s var(--ease-apple) forwards;
+}
+
+.animate-hero-zoom {
+  animation: heroCinemaZoom 1.4s var(--ease-apple) forwards;
+}
+
+/* Stagger Delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Scroll-Driven Reveal Class */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.85s var(--ease-apple), transform 0.85s var(--ease-apple);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* View Transition Cross-Fade */
+.view-enter {
+  animation: appleFadeIn 0.5s var(--ease-apple) forwards, appleSlideUp 0.6s var(--ease-apple) forwards;
+}
+
