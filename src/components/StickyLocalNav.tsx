@@ -18,7 +18,7 @@ export const StickyLocalNav: React.FC<StickyLocalNavProps> = ({
   // If viewing an individual car
   if (currentView === 'vehicle-detail' && selectedVehicle) {
     return (
-      <div className="sticky top-[44px] z-40 bg-white/90 backdrop-blur-md border-b border-[#d6d6d6] transition-all">
+      <div className="relative sm:sticky sm:top-[44px] z-40 bg-white/90 backdrop-blur-md border-b border-[#d6d6d6] transition-all">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-[52px] flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <button

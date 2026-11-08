@@ -15,6 +15,7 @@ import { SitemapSection } from './components/SitemapSection';
 import { SearchModal } from './components/SearchModal';
 import { FavoritesModal } from './components/FavoritesModal';
 import { MobileBottomDock } from './components/MobileBottomDock';
+import { FloatingWhatsAppButton } from './components/FloatingWhatsAppButton';
 import { Footer } from './components/Footer';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 
@@ -390,6 +391,9 @@ export function App() {
           </>
         )}
       </main>
+
+      {/* Floating WhatsApp Action Button */}
+      <FloatingWhatsAppButton />
 
       {/* Mobile-First Bottom Application Navigation Dock */}
       <MobileBottomDock

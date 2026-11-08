@@ -36,13 +36,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <nav className="w-full bg-white border-b border-[#e6e6e8] h-[44px] flex items-center justify-center px-4 sm:px-6 sticky top-0 z-50">
-        <div className="max-w-[1240px] w-full flex items-center justify-between text-[12px] font-normal text-[#1d1d1f]/80" style={{ letterSpacing: '-0.12px' }}>
+      <nav className="w-full bg-white/95 backdrop-blur-md border-b border-[#e6e6e8] h-[44px] flex items-center justify-center px-3 sm:px-6 sticky top-0 z-50 transition-all">
+        <div className="max-w-[1240px] w-full flex items-center justify-between gap-2.5 sm:gap-6 text-[12px] font-normal text-[#1d1d1f]/80" style={{ letterSpacing: '-0.12px' }}>
           
           {/* Brand Logo from Original Site */}
           <button
             onClick={() => handleLinkClick('overview')}
-            className="flex items-center gap-2.5 font-semibold text-[#1d1d1f] hover:opacity-85 transition-opacity cursor-pointer shrink-0"
+            className="flex items-center gap-2 font-semibold text-[#1d1d1f] hover:opacity-85 transition-opacity cursor-pointer shrink-0"
+            aria-label="Cars 'R' Us Home"
           >
             <img
               src="./carsrus-logo.png"
@@ -50,6 +51,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="h-6 sm:h-7 w-auto object-contain"
             />
             <span className="font-semibold text-[13px] tracking-tight hidden sm:inline text-[#1d1d1f]">Cars 'R' Us</span>
+          </button>
+
+          {/* Mobile Search Bar: Occupies the rest of the header space */}
+          <button
+            onClick={onOpenSearch}
+            className="sm:hidden flex-1 flex items-center gap-2 bg-[#f5f5f7] hover:bg-[#e8e8ed] active:bg-[#dcdce0] border border-[#e5e5ea] rounded-full px-3 py-1.5 text-left cursor-pointer transition-all ml-1 min-w-0"
+            title="Search inventory"
+            aria-label="Search fleet"
+          >
+            <Search className="w-3.5 h-3.5 text-[#86868b] shrink-0" />
+            <span className="text-[#86868b] text-[11.5px] truncate">Search fleet (e.g. RAV4, Prado, Hybrid...)</span>
           </button>
 
           {/* Desktop Navigation Links */}
@@ -70,8 +82,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </div>
 
-          {/* Utility Actions */}
-          <div className="flex items-center gap-4 text-[#1d1d1f]">
+          {/* Utility Actions (Desktop & Tablet only: Hidden on mobile where bottom dock & floating buttons serve user) */}
+          <div className="hidden sm:flex items-center gap-4 text-[#1d1d1f]">
             {/* Search Trigger */}
             <button
               onClick={onOpenSearch}
@@ -100,16 +112,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               href="https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20I%20am%20inquiring%20about%20your%20verified%20Japanese%20fleet."
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#0071e3] transition-colors hidden sm:flex items-center gap-1.5 font-medium text-[11px]"
+              className="hover:text-[#0071e3] transition-colors flex items-center gap-1.5 font-medium text-[11px]"
             >
               <MessageCircle className="w-3.5 h-3.5 text-[#0071e3]" />
               <span>Concierge</span>
             </a>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Tablet Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-1 text-[#1d1d1f] cursor-pointer"
+              aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>

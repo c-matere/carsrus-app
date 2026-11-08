@@ -29,27 +29,27 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onExploreWorkshop })
   };
 
   return (
-    <section className="w-full bg-white pt-16 pb-24 px-6 text-center">
+    <section className="w-full bg-white pt-6 sm:pt-16 pb-16 sm:pb-24 px-4 sm:px-6 text-center">
       <div className="max-w-[1240px] mx-auto">
         
         {/* Bare Launch Orange status label (NO pill background!) */}
-        <span className="launch-status-label mb-3 animate-apple-fade">
+        <span className="launch-status-label mb-2 sm:mb-3 animate-apple-fade">
           Operating in Kenya Since 2000
         </span>
 
         {/* Product Kicker */}
-        <p className="product-kicker mb-3 animate-apple-up delay-100">
+        <p className="product-kicker text-[17px] sm:text-[21px] mb-2 sm:mb-3 animate-apple-up delay-100">
           Cars 'R' Us (K) Ltd
         </p>
 
         {/* 80px / 600 Hero Display Headline with -1.2px tracking */}
-        <h1 className="hero-display mb-6 animate-apple-up delay-150">
+        <h1 className="hero-display mb-4 sm:mb-6 animate-apple-up delay-150">
           Precision Japanese mobility.<br />
           Pre-serviced for Kenya.
         </h1>
 
         {/* Subheading body copy */}
-        <p className="max-w-[700px] mx-auto text-[#707070] text-[17px] md:text-[19px] leading-[1.47] mb-14 animate-apple-up delay-200" style={{ letterSpacing: '-0.374px' }}>
+        <p className="max-w-[700px] mx-auto text-[#707070] text-[15px] sm:text-[17px] md:text-[19px] leading-[1.47] mb-8 sm:mb-14 animate-apple-up delay-200" style={{ letterSpacing: '-0.374px' }}>
           Over 4,000 verified vehicles delivered across Mombasa and Nairobi. Handpicked from Japanese auction houses, completely serviced in our Mombasa workshop, and delivered with zero surprises.
         </p>
 
