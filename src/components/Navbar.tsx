@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             aria-label="Cars 'R' Us Home"
           >
             <img
-              src="./carsrus-logo.png"
+              src="/carsrus-logo.png"
               alt="Cars 'R' Us Kenya Logo"
               className="h-6 sm:h-7 w-auto object-contain"
             />

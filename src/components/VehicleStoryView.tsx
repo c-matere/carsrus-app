@@ -281,7 +281,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
     <div className="w-full bg-[#fbfbfd] text-[#1d1d1f] pb-24">
       
       {/* 1. MODEL SWITCHER HORIZON BAR */}
-      <div className="w-full bg-[#f5f5f7]/95 backdrop-blur-md border-b border-[#e5e5ea] py-2 px-3 sm:px-4 sticky top-[44px] z-30 transition-all">
+      <div className="w-full bg-[#f5f5f7]/95 backdrop-blur-md border-b border-[#e5e5ea] py-2 px-3 sm:px-4 relative sm:sticky sm:top-[44px] z-30 transition-all">
         <div className="max-w-[1240px] mx-auto flex items-center justify-between gap-2 sm:gap-4">
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 min-w-0">
             <button
@@ -326,7 +326,7 @@ export const VehicleStoryView: React.FC<VehicleStoryViewProps> = ({
               href={`https://wa.me/254714333888?text=Hello%20Cars%20R%20Us,%20I%20am%20inquiring%20about%20the%20${encodeURIComponent(vehicle.name)}%20(${vehicle.stockNo}).`}
               target="_blank"
               rel="noopener noreferrer"
-              className="pricing-blue-pill !py-1.5 !px-3 sm:!px-4 text-[12px] sm:text-[13px] whitespace-nowrap active:scale-95 transition-transform"
+              className="pricing-blue-pill !py-1.5 !px-3 sm:!px-4 text-[12px] sm:text-[13px] whitespace-nowrap active:scale-95 transition-transform hidden sm:inline-flex"
             >
               Inquire
             </a>

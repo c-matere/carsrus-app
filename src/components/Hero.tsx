@@ -64,10 +64,10 @@ export const Hero: React.FC<HeroProps> = ({ onExploreFleet, onExploreWorkshop })
               loop
               playsInline
               className="w-full h-full object-cover"
-              poster="./vehicles/flagship-hero.jpg"
+              poster="/vehicles/flagship-hero.jpg"
             >
               <source src="https://videos.pexels.com/video-files/3015510/3015510-hd_1920_1080_24fps.mp4" type="video/mp4" />
-              <img src="./vehicles/flagship-hero.jpg" alt="Cars R Us Flagship Fleet" className="w-full h-full object-cover" />
+              <img src="/vehicles/flagship-hero.jpg" alt="Cars R Us Flagship Fleet" className="w-full h-full object-cover" />
             </video>
 
             {/* Subtle Editorial Gradient Overlay */}

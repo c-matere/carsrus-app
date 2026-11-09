@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Brand Logo & Identity Bar */}
         <div className="flex items-center gap-3 mb-10 pb-6 border-b border-[#e6e6e8]">
           <img
-            src="./carsrus-logo.png"
+            src="/carsrus-logo.png"
             alt="Cars 'R' Us Kenya"
             className="h-9 w-auto object-contain"
           />

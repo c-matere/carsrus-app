@@ -88,7 +88,7 @@ export interface Vehicle {
 export const VEHICLES: Vehicle[] = [
   {
     id: 'toyota-rav4-adventure',
-    stockNo: 'ALB-4062',
+    stockNo: 'CRU-4062',
     name: 'Toyota RAV4 Adventure AWD',
     moniker: 'The Uncharted Horizon',
     essenceQuote: 'Born for the wild, sculpted with restraint. A harmonious union of mechanical fortitude and modern composure.',
@@ -111,9 +111,9 @@ export const VEHICLES: Vehicle[] = [
     interiorGrade: 'Grade B (Pristine Original)',
     status: 'In Stock — Mombasa',
     heroVideo: 'https://videos.pexels.com/video-files/3015510/3015510-hd_1920_1080_24fps.mp4',
-    heroImage: './vehicles/rav4-adventure.jpg',
+    heroImage: '/vehicles/rav4-adventure.jpg',
     colors: [
-      { name: 'Ash Khaki / Ice Edge Roof', hex: '#7f8a7e', imageUrl: './vehicles/rav4-adventure.jpg' },
+      { name: 'Ash Khaki / Ice Edge Roof', hex: '#7f8a7e', imageUrl: '/vehicles/rav4-adventure.jpg' },
       { name: 'Attitude Black Mica', hex: '#1c1d1f', imageUrl: 'https://images.pexels.com/photos/261985/pexels-photo-261985.jpeg?auto=compress&cs=tinysrgb&w=1600' },
       { name: 'Platinum White Pearl', hex: '#f0f0f2', imageUrl: 'https://images.pexels.com/photos/16176579/pexels-photo-16176579.jpeg?auto=compress&cs=tinysrgb&w=1600' },
       { name: 'Magnetic Graphite Metallic', hex: '#58595c', imageUrl: 'https://images.pexels.com/photos/33327689/pexels-photo-33327689.jpeg?auto=compress&cs=tinysrgb&w=1600' }
@@ -179,7 +179,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'SofTex Adventure Contoured Seats',
             subtitle: 'Dual-Density Foam & Orange Accent Detailing',
             description: 'Rugged water-resistant SofTex material crafted for intense African overland journeys with breathable perforated central spines.',
-            imageUrl: './vehicles/rav4-adventure.jpg',
+            imageUrl: '/vehicles/rav4-adventure.jpg',
             metric: '8-Way',
             metricLabel: 'Power Driver Adjustability'
           },
@@ -308,7 +308,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'Toyota Safety Sense 2.0 Suite',
             subtitle: 'Millimeter-Wave Radar & Optical Camera Fusion',
             description: 'Constantly scans highway corridors for emergency obstacles, sudden lane intrusions, and crossing pedestrians.',
-            imageUrl: './vehicles/rav4-adventure.jpg',
+            imageUrl: '/vehicles/rav4-adventure.jpg',
             metric: 'Level 2',
             metricLabel: 'Semi-Autonomous Radar Assist'
           },
@@ -334,7 +334,7 @@ export const VEHICLES: Vehicle[] = [
           'The RAV4 Adventure was conceived not as a suburban crossover wearing rugged cladding, but as an authentic expression of mechanical utility. Its octagon-inspired body contours echo chiseled mountain basalt.',
           'Beneath the polygonal wheel arches lies an uncompromising Japanese chassis: wide-track geometry, reinforced suspension mounting points, and Dynamic Torque Vectoring All-Wheel Drive calibrated for relentless traction.'
         ],
-        imageUrl: './vehicles/rav4-adventure.jpg',
+        imageUrl: '/vehicles/rav4-adventure.jpg',
         videoUrl: 'https://videos.pexels.com/video-files/3015510/3015510-hd_1920_1080_24fps.mp4',
         highlights: [
           { label: 'Approach Angle', value: '19.3 Degrees' },
@@ -392,7 +392,7 @@ export const VEHICLES: Vehicle[] = [
       {
         title: 'Adventure Hexagonal Grille',
         description: 'Bespoke front fascia with matte dark finish and integrated fog lamp housings.',
-        url: './vehicles/rav4-adventure.jpg'
+        url: '/vehicles/rav4-adventure.jpg'
       },
       {
         title: 'SofTex Sport Cockpit',
@@ -447,7 +447,7 @@ export const VEHICLES: Vehicle[] = [
   },
   {
     id: 'toyota-harrier-hybrid',
-    stockNo: 'ALB-4061',
+    stockNo: 'CRU-4061',
     name: 'Toyota Harrier Hybrid Z Leather Package',
     moniker: 'The Sculpted Sovereign',
     essenceQuote: 'Couture craftsmanship draped over whispering hybrid momentum. An oasis of calm amidst the kinetic pulse of the metropolis.',
@@ -470,9 +470,9 @@ export const VEHICLES: Vehicle[] = [
     interiorGrade: 'Grade A (Flawless Leather)',
     status: 'In Stock — Nairobi',
     heroVideo: 'https://videos.pexels.com/video-files/856356/856356-hd_1920_1080_30fps.mp4',
-    heroImage: './vehicles/harrier-hybrid.jpg',
+    heroImage: '/vehicles/harrier-hybrid.jpg',
     colors: [
-      { name: 'Precious Black Pearl', hex: '#111214', imageUrl: './vehicles/harrier-hybrid.jpg' },
+      { name: 'Precious Black Pearl', hex: '#111214', imageUrl: '/vehicles/harrier-hybrid.jpg' },
       { name: 'White Pearl Crystal Shine', hex: '#f2f2f4', imageUrl: 'https://images.pexels.com/photos/16176579/pexels-photo-16176579.jpeg?auto=compress&cs=tinysrgb&w=1600' },
       { name: 'Slate Steel Metallic', hex: '#48494d', imageUrl: 'https://images.pexels.com/photos/33327689/pexels-photo-33327689.jpeg?auto=compress&cs=tinysrgb&w=1600' }
     ],
@@ -546,7 +546,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'Semi-Aniline Fluted Leather Armchairs',
             subtitle: 'Couture Hand-Stitched Genuine Hides',
             description: 'Gentle ergonomic contouring reduces shoulder tension with whisper-quiet suction seat ventilation.',
-            imageUrl: './vehicles/harrier-hybrid.jpg',
+            imageUrl: '/vehicles/harrier-hybrid.jpg',
             metric: 'Semi-Aniline',
             metricLabel: 'Full-Grain Hides'
           },
@@ -657,7 +657,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'Pre-Collision Radar with Low-Light Vision',
             subtitle: 'Nighttime Pedestrian & Intersection Detection',
             description: 'Millimeter-wave radar detects dark obstacles beyond standard headlight beam range and activates automated emergency deceleration.',
-            imageUrl: './vehicles/harrier-hybrid.jpg',
+            imageUrl: '/vehicles/harrier-hybrid.jpg',
             metric: 'Nighttime',
             metricLabel: 'Active Optical Sensitivity'
           },
@@ -683,7 +683,7 @@ export const VEHICLES: Vehicle[] = [
           'The fourth-generation Harrier discards aggressive utilitarian angles in favor of continuous, fluid sheet metal curvature. Its coupe-like roofline descends gracefully into pronounced haunches.',
           'Equipped with Toyota Hybrid System II, it starts and glides on silent electric current, reserving combustion power for effortless passing sprints with supreme elegance.'
         ],
-        imageUrl: './vehicles/harrier-hybrid.jpg',
+        imageUrl: '/vehicles/harrier-hybrid.jpg',
         videoUrl: 'https://videos.pexels.com/video-files/856356/856356-hd_1920_1080_30fps.mp4',
         highlights: [
           { label: 'Aerodynamic Cd', value: '0.31 Drag Factor' },
@@ -741,7 +741,7 @@ export const VEHICLES: Vehicle[] = [
       {
         title: 'Sculpted Profile Stance',
         description: 'Coupe-style falling roofline paired with flared rear haunches.',
-        url: './vehicles/harrier-hybrid.jpg'
+        url: '/vehicles/harrier-hybrid.jpg'
       },
       {
         title: 'Equestrian Saddle Console',
@@ -796,7 +796,7 @@ export const VEHICLES: Vehicle[] = [
   },
   {
     id: 'nissan-note-epower',
-    stockNo: 'ALB-4059',
+    stockNo: 'CRU-4059',
     name: 'Nissan Note e-POWER Medalist',
     moniker: 'The Urban Dynamo',
     essenceQuote: 'Pure electric acceleration unburdened by plug-in charging. The quintessential agile runabout for the modern metropolis.',
@@ -819,9 +819,9 @@ export const VEHICLES: Vehicle[] = [
     interiorGrade: 'Grade A (Medalist Wood Grain & Leather)',
     status: 'In Stock — Mombasa',
     heroVideo: 'https://videos.pexels.com/video-files/2103099/2103099-hd_1920_1080_30fps.mp4',
-    heroImage: './vehicles/note-epower.jpg',
+    heroImage: '/vehicles/note-epower.jpg',
     colors: [
-      { name: 'Imperial Amber Metallic', hex: '#63391b', imageUrl: './vehicles/note-epower.jpg' },
+      { name: 'Imperial Amber Metallic', hex: '#63391b', imageUrl: '/vehicles/note-epower.jpg' },
       { name: 'Brilliant Silver Metallic', hex: '#c5c7cb', imageUrl: 'https://images.pexels.com/photos/16176579/pexels-photo-16176579.jpeg?auto=compress&cs=tinysrgb&w=1600' },
       { name: 'Sonic Blue Pearl', hex: '#163868', imageUrl: 'https://images.pexels.com/photos/33327689/pexels-photo-33327689.jpeg?auto=compress&cs=tinysrgb&w=1600' }
     ],
@@ -924,7 +924,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'EM57 Electric Traction Motor',
             subtitle: 'Instantaneous 254 Nm Torque from Standstill',
             description: 'Surges forward with electric responsiveness, out-accelerating 2.0L turbocharged petrol cars across city intersections.',
-            imageUrl: './vehicles/note-epower.jpg',
+            imageUrl: '/vehicles/note-epower.jpg',
             metric: '254 Nm',
             metricLabel: 'Torque @ 0 RPM'
           },
@@ -998,7 +998,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'Intelligent Emergency Braking Suite',
             subtitle: 'Front Optical Sensor Hazard Mitigation',
             description: 'Autonomous collision detection and emergency brake intervention safeguards city commuters against sudden halts.',
-            imageUrl: './vehicles/note-epower.jpg',
+            imageUrl: '/vehicles/note-epower.jpg',
             metric: 'IEB',
             metricLabel: 'Autonomous City Braking'
           },
@@ -1024,7 +1024,7 @@ export const VEHICLES: Vehicle[] = [
           'The Note e-POWER bridges the future of mobility with present-day infrastructure. The electric motor drives the wheels 100% of the time, while the compact 1.2L petrol engine acts solely as an on-demand generator.',
           'You never plug it in. You refuel at any standard petrol station in two minutes and enjoy the silent, instant-torque thrills of a pure electric vehicle.'
         ],
-        imageUrl: './vehicles/note-epower.jpg',
+        imageUrl: '/vehicles/note-epower.jpg',
         videoUrl: 'https://videos.pexels.com/video-files/2103099/2103099-hd_1920_1080_30fps.mp4',
         highlights: [
           { label: 'Electric Drive', value: '100% of the time' },
@@ -1052,7 +1052,7 @@ export const VEHICLES: Vehicle[] = [
       {
         title: 'Imperial Amber Facia',
         description: 'V-Motion chrome grille with electric blue signature accent striping.',
-        url: './vehicles/note-epower.jpg'
+        url: '/vehicles/note-epower.jpg'
       },
       {
         title: 'Medalist Flagship Interior',
@@ -1099,7 +1099,7 @@ export const VEHICLES: Vehicle[] = [
   },
   {
     id: 'nissan-serena-highway-star',
-    stockNo: 'ALB-4060',
+    stockNo: 'CRU-4060',
     name: 'Nissan Serena Highway Star e-POWER',
     moniker: 'The Grand Sanctuary',
     essenceQuote: 'First-class travel for seven dignitaries. A tranquil lounge on wheels where zero-gravity seating meets dual hands-free access.',
@@ -1122,9 +1122,9 @@ export const VEHICLES: Vehicle[] = [
     interiorGrade: 'Grade A (Pristine Lounge)',
     status: 'In Stock — Mombasa',
     heroVideo: 'https://videos.pexels.com/video-files/2053100/2053100-hd_1920_1080_30fps.mp4',
-    heroImage: './vehicles/serena-highway-star.jpg',
+    heroImage: '/vehicles/serena-highway-star.jpg',
     colors: [
-      { name: 'Midnight Diamond Black', hex: '#141416', imageUrl: './vehicles/serena-highway-star.jpg' },
+      { name: 'Midnight Diamond Black', hex: '#141416', imageUrl: '/vehicles/serena-highway-star.jpg' },
       { name: 'Phantom Black Pearl', hex: '#141416', imageUrl: 'https://images.pexels.com/photos/261985/pexels-photo-261985.jpeg?auto=compress&cs=tinysrgb&w=1600' },
       { name: 'Deep Cashmere White', hex: '#f5f5f7', imageUrl: 'https://images.pexels.com/photos/20430089/pexels-photo-20430089.jpeg?auto=compress&cs=tinysrgb&w=1600' }
     ],
@@ -1134,7 +1134,7 @@ export const VEHICLES: Vehicle[] = [
         title: 'Zero-Gravity Captain Seats',
         subtitle: 'NASA-Inspired Spinal Geometry',
         description: 'Neutral posture support reduces spinal muscle loading to zero, allowing long-distance cross-country journeys with pristine comfort.',
-        imageUrl: './vehicles/serena-interior-seats.jpg',
+        imageUrl: '/vehicles/serena-interior-seats.jpg',
         metric: '2-2-3',
         metricLabel: 'Lounge Seating'
       },
@@ -1161,7 +1161,7 @@ export const VEHICLES: Vehicle[] = [
         title: 'Nissan ProPILOT Suite',
         subtitle: 'Single-Lane Highway Autonomy',
         description: 'Maintains highway lane centering and distance following with automatic full-stop hold in heavy traffic jams.',
-        imageUrl: './vehicles/serena-highway-star.jpg',
+        imageUrl: '/vehicles/serena-highway-star.jpg',
         metric: 'ProPILOT',
         metricLabel: 'Radar Autonomy'
       }
@@ -1190,7 +1190,7 @@ export const VEHICLES: Vehicle[] = [
             title: "Zero-Gravity Captain's Lounge",
             subtitle: 'NASA-Inspired Spinal Geometry & Ottomans',
             description: 'Dual individual second-row captain chairs with articulating calf supports, dual armrests, and 700mm sliding track adjustment.',
-            imageUrl: './vehicles/serena-interior-seats.jpg',
+            imageUrl: '/vehicles/serena-interior-seats.jpg',
             metric: '14 Points',
             metricLabel: 'Spinal Pressure Redistribution'
           },
@@ -1247,7 +1247,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'EM57 Traction Motor & Helical Gearbox',
             subtitle: 'Direct Single-Speed Reduction Assembly',
             description: 'Zero clutches, zero gear shifting. 320 Nm of instantaneous electric motor torque delivered through precision ground helical gears.',
-            imageUrl: './vehicles/serena-transmission-gearbox.jpg',
+            imageUrl: '/vehicles/serena-transmission-gearbox.jpg',
             metric: '320 Nm',
             metricLabel: 'Instant Torque @ 0 RPM'
           },
@@ -1304,7 +1304,7 @@ export const VEHICLES: Vehicle[] = [
             title: '10.1" Floating Digital Cockpit',
             subtitle: 'Capacitive HD Multi-Touch Command Center',
             description: 'Anti-glare panoramic touchscreen with instant mobile mirroring, multimedia playback, and real-time e-POWER hybrid telemetry.',
-            imageUrl: './vehicles/serena-infotainment-cockpit.jpg',
+            imageUrl: '/vehicles/serena-infotainment-cockpit.jpg',
             metric: '10.1"',
             metricLabel: 'High-Definition Screen Size'
           },
@@ -1361,7 +1361,7 @@ export const VEHICLES: Vehicle[] = [
             title: 'ProPILOT Single-Lane Highway Autonomy',
             subtitle: 'Steering Centering & Distance Hold',
             description: 'Autonomous steering and throttle tracking reduces driver fatigue during cross-country highway cruises and gridlock jams.',
-            imageUrl: './vehicles/serena-highway-star.jpg',
+            imageUrl: '/vehicles/serena-highway-star.jpg',
             metric: 'ProPILOT',
             metricLabel: 'Autonomous Highway Assist'
           },
@@ -1405,7 +1405,7 @@ export const VEHICLES: Vehicle[] = [
           'The Serena Highway Star e-POWER redefines executive family transit. It treats every passenger not as cargo, but as an honored guest in an acoustic sanctuary.',
           'Powered by Nissan’s electric motor drive, the lurching gear changes of traditional minivans are eradicated, replaced by whisper-quiet linear momentum.'
         ],
-        imageUrl: './vehicles/serena-highway-star.jpg',
+        imageUrl: '/vehicles/serena-highway-star.jpg',
         videoUrl: 'https://videos.pexels.com/video-files/2053100/2053100-hd_1920_1080_30fps.mp4',
         highlights: [
           { label: 'Seating', value: '7 Captains with Aisle' },
@@ -1418,12 +1418,12 @@ export const VEHICLES: Vehicle[] = [
       {
         title: 'Highway Star Front Stance',
         description: 'V-Motion double chrome horizontal bar styling.',
-        url: './vehicles/serena-highway-star.jpg'
+        url: '/vehicles/serena-highway-star.jpg'
       },
       {
         title: 'Lounge Cabin Layout',
         description: 'Individual captain chairs with fold-down airplane tables and cup holders.',
-        url: './vehicles/serena-interior-seats.jpg'
+        url: '/vehicles/serena-interior-seats.jpg'
       },
       {
         title: 'Split Rear Tailgate',
@@ -1463,3 +1463,4 @@ export const VEHICLES: Vehicle[] = [
     ]
   }
 ];
+
